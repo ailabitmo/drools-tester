@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Проверка Задания №{{assignment.number}} (assignment-{{assignment.number}})</div>
+    <div class="panel-body">
+        <form ng-upload class="form-inline" role="form" action="rest/file" 
+              method="POST" enctype="multipart/form-data" upload-options-enable-controls>
+            <input hidden name="assignment-number" value="assignment-{{assignment.number}}"/>
+            <div class="form-group">
+                <label for="email">Почтовый адрес</label>
+                <input type="email" class="form-control" name="email" 
+                       placeholder="указанный при регистраци на http://versal.com">
+            </div>
+            <div class="form-group">
+                <label for="file">Архив (.pkg) с решением</label>
+                <input type="file" id="file" name="file">
+            </div>
+            <input type="submit" class="btn btn-default" 
+                   upload-submit="uploadComplete(content, completed)" 
+                   value="Отправить"/>
+        </form>
+    </div>
+</div>
+
+<div class="loading-wheel" ng-show="loading">
+    <div class="loading-wheel-content">
+        <div class="alert alert-info">
+            <strong>Ждите!</strong> Проверяю решение...
+        </div>
+    </div>
+</div>

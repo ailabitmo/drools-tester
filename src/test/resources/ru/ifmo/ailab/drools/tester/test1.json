@@ -1,0 +1,24 @@
+{
+    "insertions": [
+        {
+            "className": "ApplicationForCredit",
+            "variable": "application",
+            "values": {
+                "Age": 17
+            }
+        },
+        {
+            "className": "CreditDecision",
+            "variable": "decision"
+        }
+    ],
+    "expectations": [
+        {
+            "className": "CreditDecision",
+            "variable": "decision",
+            "values": {
+                "Decision": false
+            }
+        }
+    ]
+}

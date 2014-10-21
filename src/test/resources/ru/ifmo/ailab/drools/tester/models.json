@@ -1,0 +1,22 @@
+[
+    {
+        "className": "ApplicationForCredit",
+        "fields": {
+            "AmountOfCredit": "Integer",
+            "PeriodOfCredit": "Integer",
+            "Salary": "Integer",
+            "Age": "Integer",
+            "Sex": "String",
+            "JobExperience": "Integer",
+            "LastPeriodOfWork": "Integer",
+            "CurrentObligations": "Integer"
+        }
+    },
+    {
+        "className": "CreditDecision",
+        "fields": {
+            "Decision": "Boolean",
+            "MonthyFee": "Integer"
+        }
+    }
+]

@@ -3,6 +3,7 @@ package ru.ifmo.ailab.drools.tester.runner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,10 +37,23 @@ public class TestRunnerFactory {
     public File getTestsAssigmentLocation(final String assigment) {
         return new File(getTestsRootLocation(), assigment);
     }
+    
+    public int getNumberOfTests() {
+        return getTestsRootLocation().list(new AssigmentFilter()).length;
+    }
+    
+    private static class AssigmentFilter implements FilenameFilter {
+        
+        @Override
+        public boolean accept(File file, String string) {
+            return string.matches("assignment-\\d+");
+        }
+    }
 
     private JSONArray readModels(final File root)
             throws JSONException, IOException {
-        final List<String> files = Arrays.asList(root.list());
+        final List<String> files = Arrays.asList(
+                root.list(new AssigmentFilter()));
         JSONArray models;
         if (!files.contains(MODELS_FILE)) {
             throw new FileNotFoundException(

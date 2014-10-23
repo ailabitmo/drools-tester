@@ -119,6 +119,14 @@ public class TestResource {
                     5, ex.getMessage())).build();
         }
     }
+    
+    @Path("tests")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getNumberOfAssignments() {
+        return Response.ok(
+                runnerFactory.getNumberOfTests(), MediaType.TEXT_PLAIN).build();
+    }
 
     private AssignmentResult findOrCreateAssignmentResult(final String email,
             final String assignment) {

@@ -15,6 +15,13 @@
             <email>kolchinmax@gmail.com</email>
         </developer>
     </developers>
+    
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -117,15 +124,6 @@
                 <version>2.4</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <url>http://192.168.134.105:8080/manager/text</url>
-                    <server>TomcatCreds</server>
                 </configuration>
             </plugin>
         </plugins>

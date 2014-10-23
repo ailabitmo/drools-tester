@@ -4,7 +4,7 @@
 
 <html lang="run" ng-app="ai-course">
     <head>
-        <title>Курс "Интеллектуальные системы" - Система проверки решений</title>
+        <title>Система проверки решений</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
@@ -20,7 +20,6 @@
         <div class="container">
             <div class="ai-header">
                 <h1 class="text-center">Система проверки решений</h1>
-                <p class="text-center"><em>для курса <a href="https://versal.com/c/ntyptp/">"Интеллектуальные системы"</a></em></p>
             </div>
             <ul ng-controller="NavTabsCtrl" id="nav-tabs" class="nav nav-tabs">
                 <li ng-repeat="tab in tabs" ng-class="{active: isActive(tab)}"><a href="{{'#' + tab.url}}">{{tab.name}}</a></li>
@@ -29,7 +28,7 @@
             <div ng-view></div>
 
             <footer class="ai-footer">
-                Разработано в <a href="http://ailab.ifmo.ru">Лаборатории интеллектуальных систем</a>
+                Разработано в <a href="http://ailab.ifmo.ru">ISST Laboratory</a>, <a href="http://ifmo.ru">ITMO University</a>
             </footer>
         </div>
     </body>

@@ -2,14 +2,28 @@
 
 var aiCourseControllers = angular.module('aiCourseControllers', []);
 
-aiCourseControllers.controller('NavTabsCtrl', ['$scope', '$location',
-    function NavTabsCtrl($scope, $location) {
-        $scope.tabs = [
-            {name: 'Главная', url: '/main'},
-            {name: 'Задание №1', url: '/assignment/1'},
-            {name: 'Задание №2', url: '/assignment/2'},
-            {name: 'Результаты', url: '/results'}
-        ];
+aiCourseControllers.controller('NavTabsCtrl', ['$scope', '$location', '$http',
+    function NavTabsCtrl($scope, $location, $http) {
+        $scope.tabs = [];
+        
+        $http.get('rest/tests')
+        .success(function(number) {
+            $scope.tabs = [
+                {name: 'Главная', url: '/main'}
+            ];
+            
+            for(var i = 1; i <= number; i++) {
+                $scope.tabs.push({
+                    name: 'Задание №' + i, url: '/assignment/' + i
+                });
+            }
+            
+            $scope.tabs.push({name: 'Результаты', url: '/results'});
+        })
+        .error(function() {
+            alert("Ошибка сервера проверки решений!\n"
+                    + "Пожалуйста, свяжитесь с администратором. Спасибо!");
+        });
 
         $scope.isActive = function(tab) {
             return tab.url === $location.path();
@@ -55,7 +69,7 @@ aiCourseControllers.controller('AssignmentCtrl', ['$scope', '$routeParams',
                             break;
                         case 5:
                             alert("Ошибка сервера проверки решений!\n"
-                                    + "Пожалуйста, свяжитесь с администратором (kolchinmax@niuitmo.ru). Спасибо!");
+                                    + "Пожалуйста, свяжитесь с администратором. Спасибо!");
                             break;
                         default :
                             alert("Ошибка при проверке решения!\nКод ошибки: " + response.code);
@@ -69,7 +83,7 @@ aiCourseControllers.controller('AssignmentCtrl', ['$scope', '$routeParams',
                 if (content !== "Please wait...") {
                     console.log(content);
                     alert("Произошла ошибка при загрузке!\n"
-                            + "Пожалуйста, свяжитесь с администратором (kolchinmax@niuitmo.ru). Спасибо!");
+                            + "Пожалуйста, свяжитесь с администратором. Спасибо!");
                 }
             }
         };

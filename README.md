@@ -37,10 +37,57 @@ Installation
 5. Run Tomcat 7
 
 Configure database
--------------
+---------------------------
 By default the application connects to MySQL on `localhost` to `dt-db` database with `dt-user` username and `dt-password` password. The all tables are created automatically.
 
 If you want to change the database settings then edit `src/main/resources/META-INF/persistence.xml` file and recompile the application.
+
+## Write a test
+A verification test is set of files containing one `models.json` file and several `test<number>.json` files, e.g. `test1.json`, `test2.json`. Each verification test should be placed in a folder with `assignment-<number>` name in the `${CATALINA.HOME}/tests` folder.
+
+### `models.json`
+Sets requirements to classes and their fields, such the class name, the name and the type of a field. An example:
+
+    [
+        {
+          "className": "Input",
+          "fields": {
+              "id": "BigDecimal",
+              "color": "String"
+          }
+      },
+      {
+          "className": "Output",
+          "fields": {
+              "isTarget": "Boolean"
+          }
+      }
+    ]
+
+### `test<number>.json`
+An example:
+
+    {
+        "insertions": [
+            {
+                "className": "Input",
+                "variable": "input",
+                "values": {
+                    "constancy": 0.5,
+                    "consistency": 2,
+                    "color": "белый"
+                }
+            }
+        ],
+        "expectations": [
+            {
+                "className": "Output",
+                "values": {
+                    "isTarget": false
+                }
+            }
+        ]
+    }
 
 Contacts
 -------------

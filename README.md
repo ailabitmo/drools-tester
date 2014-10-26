@@ -3,7 +3,7 @@ Drools Tester
 
 A web app that automatically runs verification tests against a [Drools](http://www.drools.org/) rules package created in Drools Guvnor.
 
-Drools [5.6.0.Final](http://download.jboss.org/drools/release/5.6.0.Final/) is supported.
+Drools [5.6.0.Final](http://download.jboss.org/drools/release/5.6.0.Final/) is supported. More details about Drools Guvnor can be found in [documentation](http://docs.jboss.org/drools/release/5.6.0.Final/drools-guvnor-docs/html_single/).
 
 Build from source code
 -------------
@@ -45,8 +45,8 @@ If you want to change the database settings then edit `src/main/resources/META-I
 ## Write a test
 A verification test is set of files containing one `models.json` file and several `test<number>.json` files, e.g. `test1.json`, `test2.json`. Each verification test should be placed in a folder with `assignment-<number>` name in the `${CATALINA.HOME}/tests` folder.
 
-### `models.json`
-Sets requirements to classes and their fields, such the class name, the name and the type of a field. An example:
+### Specification for `models.json`
+Sets requirements to classes and their fields, such the class name, the name and the type of a field. Some supported types: BigDecimal, String, Boolean and etc. More in [documentation](http://docs.jboss.org/drools/release/5.6.0.Final/drools-guvnor-docs/html_single/). An example:
 
     [
         {
@@ -64,7 +64,15 @@ Sets requirements to classes and their fields, such the class name, the name and
       }
     ]
 
-### `test<number>.json`
+### Specification for `test<number>.json`
+This file consists of two parts: `insertions` and `expectations`. The `insertions` is a list of instances that are inserted in the working memory, each instance have:
+
+* `className` - name of the class
+* `variable` - name of the variable that the instance is assigned to
+* `values` - list of the fields and its values
+
+The `expectations` is a list of instances that are expected to be in the working memory at the end of execution.
+
 An example:
 
     {

@@ -13,13 +13,18 @@ import ru.ifmo.ailab.drools.tester.services.TestScenario;
 
 public class TestRunnerImpl implements TestRunner {
 
+    private final String email;
+    private final String assignment;
     private final String packageName;
     private final byte[] archive;
     private final JSONArray models;
     private final List<TestScenario> scenarios;
 
-    TestRunnerImpl(final String packageName, final byte[] archive,
+    TestRunnerImpl(final String email, final String assignment, 
+            final String packageName, final byte[] archive,
             final JSONArray models, final Map<String, JSONObject> scenarious) {
+        this.email = email;
+        this.assignment = assignment;
         this.packageName = packageName;
         this.archive = archive;
         this.models = models;
@@ -47,7 +52,7 @@ public class TestRunnerImpl implements TestRunner {
             try {
                 session = KnowledgeBaseHelper
                         .createStatefulSession(archive);
-                scenario.execute(packageName, session);
+                scenario.execute(email, assignment, packageName, session);
             } finally {
                 if (session != null) {
                     session.dispose();

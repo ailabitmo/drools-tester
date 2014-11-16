@@ -52,8 +52,7 @@ public class TestRunnerFactory {
 
     private JSONArray readModels(final File root)
             throws JSONException, IOException {
-        final List<String> files = Arrays.asList(
-                root.list(new AssigmentFilter()));
+        final List<String> files = Arrays.asList(root.list());
         JSONArray models;
         if (!files.contains(MODELS_FILE)) {
             throw new FileNotFoundException(
@@ -97,11 +96,11 @@ public class TestRunnerFactory {
         return getTestsAssigmentLocation(assignment).exists();
     }
 
-    public TestRunner createTestRunner(final String assigment,
+    public TestRunner createTestRunner(final String email, final String assigment,
             final String packageName, final byte[] archive)
             throws JSONException, IOException {
         final File root = getTestsAssigmentLocation(assigment);
-        return new TestRunnerImpl(packageName, archive, readModels(root),
+        return new TestRunnerImpl(email, assigment, packageName, archive, readModels(root),
                 readScenarios(root));
     }
 

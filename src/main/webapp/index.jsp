@@ -28,7 +28,7 @@
             <div ng-view></div>
 
             <footer class="ai-footer">
-                Разработано в <a href="http://ailab.ifmo.ru">ISST Laboratory</a>, <a href="http://ifmo.ru">ITMO University</a>
+                Разработано в <a href="http://ailab.ifmo.ru">ISST Laboratory</a> @ <a href="http://ifmo.ru">ITMO University</a>
             </footer>
         </div>
     </body>

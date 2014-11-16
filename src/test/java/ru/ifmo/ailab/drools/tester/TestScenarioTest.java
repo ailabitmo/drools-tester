@@ -20,6 +20,6 @@ public class TestScenarioTest {
         final byte[] pkg = IOUtils.toByteArray(this.getClass().getResourceAsStream("credit.pkg"));
         TestScenario scenario = new TestScenario("test1", new JSONObject(json));
         StatefulKnowledgeSession session = KnowledgeBaseHelper.createStatefulSession(pkg);
-        scenario.execute("credit", session);
+        scenario.execute("test@test.com", "assignment-1", "credit", session);
     }
 }

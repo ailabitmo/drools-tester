@@ -74,6 +74,7 @@ public class TestResource {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
             if (!ServiceHelper.isValidEmail(email)) {
+                logger.info("The given email [{}] is not valid!", email);
                 return Response.ok(ServiceHelper.createResponse(Response.Status.BAD_REQUEST, 3))
                         .build();
             }
@@ -97,7 +98,7 @@ public class TestResource {
                         Response.Status.BAD_REQUEST, 4)).build();
             }
             try {
-                TestRunner runner = runnerFactory.createTestRunner(assignment,
+                TestRunner runner = runnerFactory.createTestRunner(email, assignment,
                         packageName, bytes);
                 runner.run();
                 result.setResultMessage("Решение верно.");

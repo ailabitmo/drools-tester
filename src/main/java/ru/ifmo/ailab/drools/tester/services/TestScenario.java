@@ -13,9 +13,13 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestScenario {
 
+    private static final Logger logger = LoggerFactory.getLogger(TestScenario.class);
+    private static final int MAX_NUMBER_OF_FIRED_RULES = 10;
     private static final String INSERTIONS = "insertions";
     private static final String EXPECTATIONS = "expectations";
     private static final String CLASSNAME = "className";
@@ -29,10 +33,10 @@ public class TestScenario {
         this.json = json;
     }
 
-    public void execute(final String packageName,
-            final StatefulKnowledgeSession session)
+    public void execute(final String email, final String assignment, 
+            final String packageName, final StatefulKnowledgeSession session)
             throws JSONException, InstantiationException, IllegalAccessException {
-        System.out.println(name);
+        logger.debug("[{}]-[{}]: Running [{}] test...", email, assignment, name);
         final KnowledgeBase base = session.getKnowledgeBase();
         final Map<String, Variable> variables = new HashMap<String, Variable>();
 
@@ -57,9 +61,16 @@ public class TestScenario {
                 variables.put(varName, new Variable(factType, instance));
             }
             session.insert(instance);
+            logger.debug("[{}]-[{}]: Inserted [{}] in working memory", 
+                    email, assignment, instance);
         }
 
-        session.fireAllRules();
+        final int fired_rules = session.fireAllRules(MAX_NUMBER_OF_FIRED_RULES);
+        if(fired_rules >= MAX_NUMBER_OF_FIRED_RULES) {
+            throw new AssertionError("Тест [" + name + 
+                    "]: превышено максимальное кол-во (" + MAX_NUMBER_OF_FIRED_RULES + 
+                    ") сработавших правил!\nУходим в \"бесконечный цикл\"?");
+        }
 
         //Check expected facts
         if (json.has(EXPECTATIONS)) {
@@ -88,7 +99,7 @@ public class TestScenario {
                 ObjectStoreWrapper store = (ObjectStoreWrapper) session
                         .execute(CommandFactory.newGetObjects());
                 for (Object o : store) {
-                    System.out.println(o);
+                    logger.debug("Next instance in working memory: {}", o);
                     if (o.getClass().getSimpleName().equals(className)) {
                         FactType type = session.getKnowledgeBase().getFactType(
                                 packageName, o.getClass().getSimpleName());
@@ -114,9 +125,9 @@ public class TestScenario {
             for (Iterator iter = values.keys(); iter.hasNext();) {
                 final String valueName = (String) iter.next();
                 final Object value = values.get(valueName);
-                System.out.println(valueName + "=" + value);
+                logger.debug("Expected: {}={}",valueName, value);
                 final Object result = type.get(instance, valueName);
-                System.out.println("result=" + result);
+                logger.debug("Actual: {}={}", valueName, result);
                 return result != null && value.equals(result);
             }
         } else {

@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class TestScenario {
 
     private static final Logger logger = LoggerFactory.getLogger(TestScenario.class);
-    private static final int MAX_NUMBER_OF_FIRED_RULES = 10;
+    private static final int MAX_NUMBER_OF_FIRED_RULES = 100;
     private static final String INSERTIONS = "insertions";
     private static final String EXPECTATIONS = "expectations";
     private static final String CLASSNAME = "className";

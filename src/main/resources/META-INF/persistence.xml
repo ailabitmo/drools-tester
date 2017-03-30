@@ -5,11 +5,11 @@
     <persistence-unit name="ru.ifmo.ailab.drools.tester">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/dt-db"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql/dt-db"/>
             <property name="javax.persistence.jdbc.user" value="dt-user"/>
             <property name="javax.persistence.jdbc.password" value="dt-password"/>
             
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.characterEncoding" value="utf8"/>

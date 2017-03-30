@@ -70,7 +70,7 @@ public class TestResource {
         try {
             if (!runnerFactory.isTestsExist(assignment)) {
                 logger.error("There are no tests for {}! Tried to find at {}",
-                        assignment, runnerFactory.getTestsAssigmentLocation(assignment));
+                        assignment, runnerFactory.getTestsAssignmentLocation(assignment));
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
             if (!ServiceHelper.isValidEmail(email)) {

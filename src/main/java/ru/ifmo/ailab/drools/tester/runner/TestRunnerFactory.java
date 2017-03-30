@@ -13,6 +13,8 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestRunnerFactory {
 
@@ -33,17 +35,17 @@ public class TestRunnerFactory {
         }
         return new File(location);
     }
-    
-    public File getTestsAssigmentLocation(final String assigment) {
-        return new File(getTestsRootLocation(), assigment);
+
+    public File getTestsAssignmentLocation(final String assignment) {
+        return new File(getTestsRootLocation(), assignment);
     }
-    
+
     public int getNumberOfTests() {
-        return getTestsRootLocation().list(new AssigmentFilter()).length;
+        return getTestsRootLocation().list(new AssignmentFilter()).length;
     }
-    
-    private static class AssigmentFilter implements FilenameFilter {
-        
+
+    private static class AssignmentFilter implements FilenameFilter {
+
         @Override
         public boolean accept(File file, String string) {
             return string.matches("assignment-\\d+");
@@ -80,7 +82,7 @@ public class TestRunnerFactory {
             }
             try {
                 reader = new FileReader(new File(root, file));
-                scenarios.put(file.replace(".json", ""), 
+                scenarios.put(file.replace(".json", ""),
                         new JSONObject(IOUtils.toString(reader)));
             } finally {
                 IOUtils.closeQuietly(reader);
@@ -93,14 +95,14 @@ public class TestRunnerFactory {
         if(assignment == null) {
             return false;
         }
-        return getTestsAssigmentLocation(assignment).exists();
+        return getTestsAssignmentLocation(assignment).exists();
     }
 
-    public TestRunner createTestRunner(final String email, final String assigment,
+    public TestRunner createTestRunner(final String email, final String assignment,
             final String packageName, final byte[] archive)
             throws JSONException, IOException {
-        final File root = getTestsAssigmentLocation(assigment);
-        return new TestRunnerImpl(email, assigment, packageName, archive, readModels(root),
+        final File root = getTestsAssignmentLocation(assignment);
+        return new TestRunnerImpl(email, assignment, packageName, archive, readModels(root),
                 readScenarios(root));
     }
 

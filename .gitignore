@@ -1,2 +1,6 @@
 nb-configuration.xml
-/target/
+**/target
+**/tests
+**/database
+**/.idea
+**/*.iml
